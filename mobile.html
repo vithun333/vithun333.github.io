@@ -1060,6 +1060,10 @@ function splitLetters(root,step){
   const wrap=$('#namewrap'),ink=$('#nameInk'),svgs=$$('svg',wrap);
   const NS='http://www.w3.org/2000/svg';
   const hero=$('.hero'),vids=[$('#hv0'),$('#hv1')],flTag=$('#flTag'),vdots=$('#vdots');
+  /* Clips whose subject is not centred in the frame. object-fit:cover trims
+     about 130px of a 720px-wide source on a phone, and centring that cut took
+     the left tower of Marina Bay Sands with it. */
+  const FRAME={'city-singapore':'30% center'};
   let hits=[],cur=-1,front=0,gen=0;
 
   ink.textContent='';
@@ -1131,10 +1135,16 @@ function splitLetters(root,step){
       front=1-front;
       setTimeout(()=>{if(gen===my)fr.pause();},700);
     };
+    back.style.objectPosition=FRAME[r.file]||'';                  // also on the instant path
     if(back.dataset.file===r.file){                              // already loaded → instant
       back.currentTime=0;const p=back.play();if(p&&p.catch)p.catch(()=>{});swap();return;
     }
     back.dataset.file=r.file;back.poster=r.file+'.jpg';back.preload='auto';back.src=r.file+'.mp4';
+    /* Set here rather than left to a CSS attribute selector. The stylesheet
+       rule was correct and matched in testing, but this element is built and
+       swapped by script, and a value written straight onto it cannot be lost
+       to a specificity contest or a rule ordering I have not noticed. */
+    back.style.objectPosition=FRAME[r.file]||'';
     let done=false;
     const go=()=>{if(done||my!==gen)return;done=true;
       const p=back.play();if(p&&p.catch)p.catch(()=>{});swap();

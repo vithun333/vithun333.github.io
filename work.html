@@ -16,6 +16,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=zodiak@400,401&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
 <script src="motion.js"></script>
+<script src="clock.js" defer></script>
 <script src="theme.js"></script>
 <script src="softscroll.js"></script>
 <link rel="prefetch" href="index.html">
@@ -52,6 +53,8 @@ header{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;align-items:
 header .brand{font-family:'Humanism',sans-serif;font-weight:700;font-size:19px;text-transform:uppercase}
 header .brand i{color:var(--accent);font-style:normal}
 .navr{display:flex;align-items:center;gap:22px}
+.clock{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  opacity:.8;font-variant-numeric:tabular-nums}
 .navlink{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;position:relative;padding:4px 0}
 .navlink::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#fff;transition:width .45s var(--ease)}
 .navlink:hover::after,.navlink[aria-current]::after{width:100%}
@@ -83,6 +86,7 @@ html.dark .tglbtn:active .tgl .knob{transform:translateX(16px)}
 <header>
   <a class="brand" href="index.html">vithun<i>.</i></a>
   <nav class="navr">
+    <span class="clock" id="clock">VAN —:—</span>
     <a class="navlink" href="index.html">Home</a>
     <a class="navlink" href="about.html">About</a>
     <a class="navlink" href="work.html" aria-current="page">Work</a>

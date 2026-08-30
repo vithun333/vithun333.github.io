@@ -402,7 +402,11 @@ html.dark .pv .dossier h2{color:color-mix(in oklab,var(--pc) 84%,#FFFFFF)}
    become that same colour. Matching the qualifier fixes it; the ink is the one
    picked by contrast in --pcink either way. */
 .pv .dossier:hover h2,.pv .dossier:focus-visible h2,
-html.dark .pv .dossier:hover h2,html.dark .pv .dossier:focus-visible h2{color:inherit}
+html.dark .pv .dossier:hover h2,html.dark .pv .dossier:focus-visible h2{
+  /* the value, not `inherit`. Inheriting made the heading depend on the row's
+     own colour resolving first, which is one more thing that can be overridden
+     out from under it. --pcink is #12120F for every project in this list. */
+  color:var(--pcink,#12120F)}
 .pv .dossier:hover .yr,.pv .dossier:focus-visible .yr{color:inherit}
 .pv .dossier:hover .cat,.pv .dossier:hover .line,.pv .dossier:hover .did li,
 .pv .dossier:hover .yr small,.pv .dossier:hover .did em,
