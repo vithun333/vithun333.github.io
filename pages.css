@@ -303,8 +303,11 @@ html.dark .pv #c-ca .wash{background:linear-gradient(rgba(58,53,80,.84) 0%,rgba(
 /* on a narrow screen it becomes a stack, and a tap opens one */
 @media (max-width:900px){
   .pv .strip{flex-direction:column;min-height:0;gap:8px}
+  /* .52s to match the panel: at .4s the card finished changing colour before
+     it finished opening, so the two halves of one move ended at different
+     times. */
   .pv .step{flex:0 0 auto;padding:16px 16px 18px;
-    transition:background .4s var(--ease),border-color .4s var(--ease)}
+    transition:background .52s var(--ease),border-color .52s var(--ease)}
   .pv .strip:hover .step,.pv .strip:focus-within .step{flex-grow:0;opacity:1}
   .pv .strip .step:hover,.pv .strip .step:focus,.pv .strip .step:focus-visible{flex-grow:0}
   .pv .spine{flex-direction:row;align-items:baseline;gap:12px}
@@ -312,14 +315,16 @@ html.dark .pv #c-ca .wash{background:linear-gradient(rgba(58,53,80,.84) 0%,rgba(
   .pv .step:hover .nm,.pv .step:focus .nm{font-size:22px}
   /* grid-template-rows animates from 0fr to 1fr, which is the one way to get
      a real transition to content height without measuring it in script */
-  /* Closing is quicker than opening, and the copy fades out ahead of the box
-     rather than with it — a panel that shuts at the same speed it opened reads
-     as sluggish, and one whose text is still legible while the box collapses
-     reads as broken. */
+  /* Closing mirrors opening. An earlier version shut in .4s with the copy
+     gone in .18s, on the theory that a quick dismissal feels responsive — on a
+     phone it just read as the panel snapping shut, because the text vanished
+     while the box was still most of the way open and there was nothing left to
+     watch slide. Same duration both ways, and the copy stays legible for most
+     of the collapse. */
   .pv .step .detail{position:static;width:auto;max-width:none;visibility:visible;
     display:grid;grid-template-rows:0fr;opacity:0;transform:none;margin-top:0;
-    transition:grid-template-rows .4s var(--ease),opacity .18s ease,
-               margin-top .4s var(--ease)}
+    transition:grid-template-rows .52s var(--ease),opacity .34s ease,
+               margin-top .52s var(--ease)}
   .pv .detail-in{min-height:0;overflow:hidden;height:auto}
   /* :focus-visible, NOT :focus-within. A tap leaves the button focused, so
      :focus-within stayed true after the second tap removed .open — the panel
