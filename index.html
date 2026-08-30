@@ -21,9 +21,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Doto:wght@500;700;900&display=swap" rel="stylesheet">
 <script>
 /* Touch devices get the dedicated mobile build.
-   Add ?force to the URL to stay on this build regardless (handy for previewing). */
-if(!/[?&]force\b/.test(location.search)&&
-   (matchMedia('(pointer:coarse)').matches||innerWidth<=760))location.replace('mobile.html'+location.hash);
+
+   NOT `pointer:coarse` on its own. That asks what the PRIMARY pointer is, and
+   on a Windows laptop with a touchscreen the answer can be "touch" even though
+   there is a trackpad right there — so those machines were being redirected to
+   the phone build at full desktop width. It looks close enough to the desktop
+   layout at 1080px that the giveaway was small: the header clock is not in the
+   mobile build, so the time appeared to vanish.
+
+   A device is a phone or tablet if the viewport is narrow, or if it has a
+   coarse pointer and NO fine one at all. A touchscreen laptop has both, and
+   stays here where it belongs.
+
+   Add ?force to the URL to stay on this build regardless. */
+(function(){
+  if(/[?&]force\b/.test(location.search))return;
+  var narrow=innerWidth<=760, touchOnly=false;
+  try{
+    touchOnly=matchMedia('(pointer:coarse)').matches &&
+              !matchMedia('(any-pointer:fine)').matches;
+  }catch(e){}
+  if(narrow||touchOnly)location.replace('mobile.html'+location.hash);
+})();
 </script>
 <script src="motion.js"></script>
 <script src="theme.js"></script>

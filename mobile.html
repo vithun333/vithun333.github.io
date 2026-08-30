@@ -221,6 +221,12 @@ body.menu-open #menu .tgl-row{opacity:1;transform:none}
   transition:transform .95s cubic-bezier(.19,.86,.22,1)}
 .hero.playing .hero-vid-in{transform:translateY(0) scale(1.02);
   transition:transform .78s cubic-bezier(.19,.86,.22,1)}
+/* Singapore is framed off-centre in the source: object-fit:cover trims 129px
+   of a 720px-wide frame on a phone, and centring that cut took the left tower
+   of Marina Bay Sands with it. 30% slides the window left so all three towers
+   and the ArtScience Museum are inside it. The others are centred subjects and
+   want the default. */
+.hero-vid video[data-file="city-singapore"]{object-position:30% center}
 .hero-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
   transition:opacity .55s cubic-bezier(.19,.86,.22,1)}
 .hero-vid video.front{opacity:1}
@@ -279,7 +285,12 @@ body.lines-in .fl-track{transform:scaleX(1)}
 .fl-tag{position:relative;z-index:2;background:var(--paper);padding-right:14px;
   font-family:'Doto','Courier New',monospace;font-weight:900;
   font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
-  transition:opacity .45s var(--ease)}
+  transition:opacity .45s var(--ease),color .3s var(--ease)}
+/* Once it is naming a real place rather than prompting, it switches out of the
+   dot-matrix face. Doto is a texture font — fine for "TAP MY NAME", poor for
+   "Ho Chi Minh City, Vietnam", where the reader needs the words. */
+.fl-tag.live{font-family:'Satoshi',system-ui,sans-serif;font-weight:700;
+  font-size:13px;letter-spacing:.02em;text-transform:none}
 .fl-tag.dim{opacity:0}
 .vdots{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:2;display:flex;gap:6px;
   background:var(--paper);padding-left:10px}
