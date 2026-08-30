@@ -1,0 +1,22 @@
+# ============================================================================
+# One folder to skip.
+#
+# Everything that should not be published now lives in _not-for-upload/ —
+# masters, superseded stills, working notes, the Cloudflare Worker source and
+# the pre-compression city clips.
+#
+# It is a real folder rather than a list of names here because GitHub's WEB
+# uploader does not read .gitignore at all. Dragging a folder into the browser
+# uploads whatever you dropped, and rejects any single file over 25 MB — which
+# is why a 36 MB master that git was correctly ignoring still blocked the
+# upload. Moving those files out of the way is the only thing both paths obey.
+# ============================================================================
+
+_not-for-upload/
+
+# --- housekeeping --------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+node_modules/
