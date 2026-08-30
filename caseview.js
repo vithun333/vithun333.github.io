@@ -164,4 +164,5 @@
   /* the only entry point the rest of the site needs */
   window.openCase=function(i,from){show(i,from,true);};
   window.caseViewOpen=function(){return open;};
+  window.closeCase=function(){hide();};        // so Home can get back to the top
 })();

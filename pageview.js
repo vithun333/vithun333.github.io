@@ -241,4 +241,5 @@
 
   window.openPage=function(name){show(name,true);};
   window.pageViewOpen=function(){return open;};
+  window.closePage=function(){hide();};        // so Home can get back to the top
 })();

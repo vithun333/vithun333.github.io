@@ -321,7 +321,11 @@ html.dark .pv #c-ca .wash{background:linear-gradient(rgba(58,53,80,.84) 0%,rgba(
     transition:grid-template-rows .4s var(--ease),opacity .18s ease,
                margin-top .4s var(--ease)}
   .pv .detail-in{min-height:0;overflow:hidden;height:auto}
-  .pv .step.open .detail,.pv .step:focus-within .detail{
+  /* :focus-visible, NOT :focus-within. A tap leaves the button focused, so
+     :focus-within stayed true after the second tap removed .open — the panel
+     could be opened but never closed. :focus-visible does not match a touch or
+     mouse press, only keyboard focus, which is the case it was there for. */
+  .pv .step.open .detail,.pv .step:focus-visible .detail{
     grid-template-rows:1fr;opacity:1;margin-top:14px;
     /* the copy arrives just after the box has started to open for it */
     transition:grid-template-rows .52s var(--ease),opacity .34s ease .1s,

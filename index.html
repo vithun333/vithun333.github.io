@@ -54,7 +54,7 @@ html.dark{
 }
 html,body,section,footer,.ticker{transition:background-color .55s ease,color .55s ease}
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
 /* NB: no `scroll-behavior:smooth` here — it fights the JS soft-scroll below,
    which sets the scroll position every frame, and causes drift/jitter.      */
 html,body{transition:background-color .5s ease,color .5s ease}
@@ -220,14 +220,23 @@ html.dark .tglbtn:active .tgl .knob{transform:translateX(16px)}
   padding-top:22px;border-top:1px solid var(--panel-rule);font-size:11px;letter-spacing:.2em;
   text-transform:uppercase;font-weight:700;color:var(--panel-fg);
   opacity:0;transform:translateY(18px);transition:opacity .5s var(--ease) .42s,transform .6s var(--ease) .42s}
-#burger{display:none;width:30px;height:22px;position:relative;background:none;border:none;cursor:pointer;
-  padding:0;color:inherit}
-#burger span{position:absolute;left:0;right:0;height:1.5px;background:currentColor;
-  transition:transform .5s var(--ease)}
-#burger span:nth-child(1){top:7px}
-#burger span:nth-child(2){bottom:7px}
-body.menu-open #burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
-body.menu-open #burger span:nth-child(2){transform:translateY(-6px) rotate(-45deg)}
+/* Both strokes live at the exact centre and are pushed apart in the CLOSED
+   state, so the open state is a plain rotate with no translation at all. The
+   previous version did the reverse — centred at rest, translated to meet — and
+   any error in that arithmetic showed up as a lopsided X. There is no
+   arithmetic left to get wrong: two identical lines, same origin, opposite
+   rotations. The padding/negative-margin pair gives a 44px tap target without
+   changing how it looks. */
+#burger{display:none;width:30px;height:30px;position:relative;background:none;border:none;
+  padding:8px;margin:-8px;box-sizing:content-box;cursor:pointer;color:inherit;
+  -webkit-tap-highlight-color:transparent}
+#burger span{position:absolute;left:8px;right:8px;top:50%;height:1.5px;margin-top:-.75px;
+  background:currentColor;transform-origin:50% 50%;
+  transition:transform .45s var(--ease)}
+#burger span:nth-child(1){transform:translateY(-4.5px)}
+#burger span:nth-child(2){transform:translateY(4.5px)}
+body.menu-open #burger span:nth-child(1){transform:rotate(45deg)}
+body.menu-open #burger span:nth-child(2){transform:rotate(-45deg)}
 body.menu-open #menu{clip-path:inset(0 0 0 0);pointer-events:auto}
 body.menu-open #menu a{opacity:1;transform:none}
 body.menu-open #menu a:nth-child(1){transition-delay:.16s}
@@ -1729,6 +1738,27 @@ if(!COARSE)(function(){
   burger&&burger.addEventListener('click',()=>document.body.classList.toggle('menu-open'));
   $$('[data-nav]').forEach(a=>a.addEventListener('click',e=>{
     const id=a.getAttribute('href');if(!id||!id.startsWith('#'))return;
+    /* Home and the wordmark: go to the top, deterministically.
+
+       Both used to be ordinary #top anchors resolved through the generic
+       handler below, which scrolls whatever element the hash names — and did
+       nothing useful when an overlay was covering the page, because the hero
+       it scrolled to was underneath it. Now they close whatever is open first,
+       then take the window to zero, which needs no anchor to resolve at all. */
+    if(id==='#top'){
+      e.preventDefault();
+      document.body.classList.remove('menu-open');
+      let wasOpen=false;
+      try{
+        if(window.caseViewOpen&&window.caseViewOpen()&&window.closeCase){window.closeCase();wasOpen=true;}
+        if(window.pageViewOpen&&window.pageViewOpen()&&window.closePage){window.closePage();wasOpen=true;}
+      }catch(err){}
+      setTimeout(()=>{
+        if(window.__glide)window.__glide(0);
+        else try{scrollTo({top:0,behavior:REDUCED?'auto':'smooth'});}catch(err){scrollTo(0,0);}
+      },wasOpen?540:120);
+      return;
+    }
     e.preventDefault();document.body.classList.remove('menu-open');
     const el=$(id);if(!el)return;
     setTimeout(()=>{
