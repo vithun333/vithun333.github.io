@@ -395,7 +395,14 @@ html.dark .pv .dossier h2{color:color-mix(in oklab,var(--pc) 84%,#FFFFFF)}
 /* the row takes the project's own colour and the type is knocked out of it in
    the page ink, the same behaviour as Selected Work on the home page */
 .pv .dossier:hover,.pv .dossier:focus-visible{background:var(--pc);color:var(--pcink,var(--ink))}
-.pv .dossier:hover h2,.pv .dossier:focus-visible h2{color:inherit}
+/* The dark-mode tint above is `html.dark .pv .dossier h2` — an element, three
+   classes and another element, which outranks a hover rule that only has three
+   classes and one element. So in dark mode the heading ignored the knock-out
+   and kept a pale wash of the project colour, on a background that had just
+   become that same colour. Matching the qualifier fixes it; the ink is the one
+   picked by contrast in --pcink either way. */
+.pv .dossier:hover h2,.pv .dossier:focus-visible h2,
+html.dark .pv .dossier:hover h2,html.dark .pv .dossier:focus-visible h2{color:inherit}
 .pv .dossier:hover .yr,.pv .dossier:focus-visible .yr{color:inherit}
 .pv .dossier:hover .cat,.pv .dossier:hover .line,.pv .dossier:hover .did li,
 .pv .dossier:hover .yr small,.pv .dossier:hover .did em,
