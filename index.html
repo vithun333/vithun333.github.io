@@ -1720,16 +1720,48 @@ if(!COARSE)(function(){
   })();
 })();
 
-/* ---------------- CLOCK (Vancouver) ---------------- */
+/* ---------------- CLOCK (Vancouver) ----------------
+   Written to be unfailable rather than merely correct, because the failure
+   mode is silent: the markup ships a "VAN —:—" placeholder, so anything that
+   stops tick() from landing leaves the header looking like the clock was
+   removed rather than broken.
+
+   Three things could do that, and all three are now handled:
+     - the timezone lookup throwing (a browser built without full ICU data),
+       which the old try/catch swallowed and left on the placeholder;
+     - the tab being restored from the back/forward cache, where interval
+       timers are frozen and the time on screen is whatever it was minutes ago;
+     - the interval being throttled or dropped in a background tab.
+   So it re-reads on every event that could mean the page is being looked at
+   again, and falls back to local time rather than showing nothing.        */
 (function(){
   const a=$('#clock');if(!a)return;
-  function tick(){
+  function stamp(){
+    const now=new Date();
     try{
-      a.textContent='YVR '+new Date().toLocaleTimeString('en-US',
+      return 'YVR '+now.toLocaleTimeString('en-US',
         {timeZone:'America/Vancouver',hour:'2-digit',minute:'2-digit',hour12:false});
-    }catch(e){}
+    }catch(e){
+      /* no timezone database: the local hour is wrong for Vancouver, so it is
+         labelled honestly rather than silently lying about where it is */
+      try{
+        return 'LOCAL '+now.toLocaleTimeString('en-US',
+          {hour:'2-digit',minute:'2-digit',hour12:false});
+      }catch(e2){
+        const h=('0'+now.getHours()).slice(-2),m=('0'+now.getMinutes()).slice(-2);
+        return 'LOCAL '+h+':'+m;
+      }
+    }
   }
-  tick();setInterval(tick,15000);
+  function tick(){const t=stamp();if(t&&a.textContent!==t)a.textContent=t;}
+  tick();
+  setInterval(tick,15000);
+  /* every moment the page might be freshly on screen */
+  addEventListener('pageshow',tick);
+  addEventListener('focus',tick);
+  addEventListener('visibilitychange',tick);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',tick,{once:true});
+  addEventListener('load',tick);
 })();
 
 /* ---------------- NAV / MENU / ANCHORS ---------------- */
