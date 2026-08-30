@@ -1482,7 +1482,13 @@ addEventListener('scroll',()=>{const y=scrollY;velo=clamp((y-lastY)*.4,-22,22);l
   });
 
   deck.addEventListener('pointerdown',e=>{
-    if(flying)return;
+    /* Land the outgoing card immediately rather than ignoring the touch. The
+       fly-out lasts between .34s and .94s depending on how hard the last one
+       was thrown, and refusing input for that whole time is what made a quick
+       second swipe feel like it had been dropped. The deck order was already
+       rotated when the fling started, so the card under the finger is the
+       right one. */
+    if(flying)finishFly();
     const el=cards[order[0]];
     drag=true;sx=lastX=e.clientX;sy=e.clientY;dx=dy=moved=0;vel=0;
     tx=ty=cx=cy=0;
@@ -1494,7 +1500,12 @@ addEventListener('scroll',()=>{const y=scrollY;velo=clamp((y-lastY)*.4,-22,22);l
     if(!drag)return;
     dx=e.clientX-sx;dy=e.clientY-sy;
     vel=e.clientX-lastX;lastX=e.clientX;
-    moved=Math.max(moved,Math.abs(dx)+Math.abs(dy));
+    /* Straight-line distance, not |dx|+|dy|. The Manhattan sum overstates a
+       diagonal by up to 41%, so a thumb that rolled a couple of pixels while
+       pressing already read as a drag and the tap was thrown away. 12px also
+       matches the slop a browser itself allows before calling something a
+       scroll rather than a tap. */
+    moved=Math.max(moved,Math.hypot(dx,dy));
     tx=dx;ty=dy;                                               // the frame loop does the drawing
     startTick();
   });
@@ -1533,7 +1544,7 @@ addEventListener('scroll',()=>{const y=scrollY;velo=clamp((y-lastY)*.4,-22,22);l
     if(!drag)return;drag=false;
     if(e&&e.pointerId!=null){try{deck.releasePointerCapture(e.pointerId)}catch(err){}}
     const el=cards[order[0]];
-    if(moved<9){                                               // a tap, not a swipe
+    if(moved<12){                                              // a tap, not a swipe
       if(window.openCase){window.openCase(+el.dataset.pi);return;}
       curtainUp(()=>location.href='case.html?p='+el.dataset.pi,620);return;
     }
