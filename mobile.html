@@ -761,7 +761,7 @@ body.arrowing .dcard:focus-visible{outline:none}
   </div>
   <div class="facts">
     <div class="fact rv"><b>3</b><span>Years designing</span></div>
-    <div class="fact rv rv-d1"><b>05</b><span>Selected projects</span></div>
+    <div class="fact rv rv-d1"><b>06</b><span>Selected projects</span></div>
     <div class="fact rv rv-d2"><b>YVR</b><span>Vancouver, Canada</span></div>
   </div>
 </section>
@@ -849,23 +849,28 @@ const sessSet=(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){}};
 
 /* ---------------- DATA ---------------- */
 const PROJECTS=[
- {name:"tidbit",cat:"UI/UX Hackathon",year:"2024",time:"1 day",thumb:"th-tb1.jpg",color:"#F5821F",
-  blurb:"A quick cooking app you browse by swiping, turning recipe overload into simple instructions you follow one step at a time, built in a single day."},
- {name:"Vancouver Police Museum",cat:"UI/UX — Accessibility",year:"2025",time:"4 months",thumb:"th-VPMD.jpg",color:"#3B82F6",
+ {name:"Vancouver Police Museum",cat:"UI/UX — Accessibility",year:"2025",time:"4 months",img:"VPM1.png",thumb:"th-VPMD.jpg",color:"#3B82F6",
   blurb:"An accessibility-focused museum app grounded in four months of on-site research and stakeholder collaboration."},
- {name:"Zealty",cat:"UX Research",year:"2025",time:"4 months",thumb:"th-ZD.jpg",color:"#EC4899",
+ {name:"Zealty",cat:"UX Research",year:"2025",time:"4 months",img:"Z1.png",thumb:"th-ZD.jpg",color:"#EC4899",
   blurb:"A comparative usability study against REW with redesign recommendations for Zealty's product team, all backed by research."},
- {name:"Echo of Motion",cat:"Wearable Interaction",year:"2026",time:"1 month",thumb:"th-EOMD.jpg",color:"#EF4444",
+ {name:"Harmony Arts Studio",cat:"Visual Identity / Design System",year:"2026",time:"3 weeks",img:"HAS1.png",thumb:"th-HAS.jpg",color:"#F5C842",
+  blurb:"A visual design system and template kit for a Langley wellness studio, so a small team can publish on-brand social content without a designer."},
+ {name:"tidbit",cat:"UI/UX Hackathon",year:"2024",time:"1 day",img:"tb1.png",thumb:"th-tb1.jpg",color:"#F5821F",   // thumb = device mockup
+  blurb:"A quick cooking app you browse by swiping, turning recipe overload into simple instructions you follow one step at a time, built in a single day."},
+ {name:"Echo of Motion",cat:"Wearable Interaction",year:"2026",time:"1 month",img:"EOMD.png",thumb:"th-EOMD.jpg",color:"#EF4444",
   blurb:"A wearable drawing interface that translates wrist movement into expressive lines in real time on a digital canvas."},
- {name:"The Uneven Wave",cat:"Frontend / Data Viz",year:"2026",time:"2 months",thumb:"th-TUVD.jpg",color:"#CDB89A",
+ {name:"The Uneven Wave",cat:"Frontend / Data Viz",year:"2026",time:"2 months",img:"TUW-1.png",thumb:"th-TUVD.jpg",color:"#CDB89A",
   blurb:"An interactive data-visualisation site, driven by scrolling, that explores AI's spread through gaming, marketing and media."}
 ];
 const N=PROJECTS.length;
-const SHOTS=[["th-tb1.jpg","th-tb1.jpg","th-tb34.jpg"],
+const SHOTS=[
  ["th-VPMD.jpg","th-VPMD.jpg","th-VPM2.jpg","th-VPM4.jpg"],
  ["th-ZD.jpg","th-ZD.jpg","th-Z2.jpg","th-Z3.jpg"],
+ ["th-HAS.jpg","th-HAS.jpg","th-HAS2.jpg","th-HAS3.jpg"],
+ ["th-tb1.jpg","th-tb1.jpg","th-tb34.jpg"],
  ["th-EOMD.jpg","th-EOMD.jpg","th-320-2.jpg"],
- ["th-TUVD.jpg","th-TUVD.jpg","th-TUW-2.jpg","th-TUW-3.jpg"]];
+ ["th-TUVD.jpg","th-TUVD.jpg","th-TUW-2.jpg","th-TUW-3.jpg"]
+];
 const FILM={name:"Horroscope",cat:"Film / Cinematography",film:true,color:"#FF6A00",
   url:"https://youtu.be/1duDiLWw14M",
   blurb:"A short film made with a team of six for a film class, where I worked as the cinematographer. "+
@@ -914,8 +919,8 @@ const TOOLS=[["Figma","figma.svg"],["Photoshop","photoshop.png"],["After Effects
 /* each frame carries the project it came from, shown on hover */
 const GALLERY=[["th-tb1.jpg","tidbit"],["th-VPM2.jpg","Vancouver Police Museum"],
   ["th-book.jpg","Sentient"],["th-Z2.jpg","Zealty"],["th-320-2.jpg","Echo of Motion"],
-  ["th-TUW-2.jpg","The Uneven Wave"],["th-tb34.jpg","tidbit"],["th-horroscope.jpg","Horroscope"],
-  ["th-VPM4.jpg","Vancouver Police Museum"],["th-Z3.jpg","Zealty"],["th-TUW-3.jpg","The Uneven Wave"]];
+  ["th-TUW-2.jpg","The Uneven Wave"],["th-HAS.jpg","Harmony Arts Studio"],["th-tb34.jpg","tidbit"],["th-horroscope.jpg","Horroscope"],
+  ["th-VPM4.jpg","Vancouver Police Museum"],["th-Z3.jpg","Zealty"],["th-HAS2.jpg","Harmony Arts Studio"],["th-TUW-3.jpg","The Uneven Wave"]];
 
 /* ---------------- BUILD ---------------- */
 /* pale project colours need ink text instead of white */

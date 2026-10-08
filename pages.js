@@ -344,29 +344,36 @@ window.ABOUT_HTML =
 
 /* ------------------------------------------------------------------- work */
 var DID={
- 0:['Designed the recipe detail and cooking experience',
-    'Structured ingredients, nutrition, utensils and AI summaries to cut cognitive load',
-    'Conceptualised the step-by-step cooking interface, one full-screen instruction at a time'],
- 1:['Contributed across research, synthesis, ideation, wireframing and hi-fi prototyping',
+ /* keyed by index into window.CASES, so this has to be reordered whenever that
+    array is. Order there is Vancouver Police Museum, Zealty, Harmony
+    Arts Studio, tidbit, Echo of Motion, The Uneven Wave */
+ 0:['Contributed across research, synthesis, ideation, wireframing and hi-fi prototyping',
     'Led a participatory design workshop with museum staff',
     'Designed the Exhibition Description, My Visit and QR Code screens',
     'Built them around scalable type, high contrast and clear hierarchy'],
- 2:['Led the interviews with novice users',
+ 1:['Led the interviews with novice users',
     'Analysed their behavioural data, questionnaires and session recordings',
     'Surfaced the cognitive overload, filter confusion and navigation themes',
     'Those themes drove the recommendations delivered to Zealty'],
- 3:['Owned the technical implementation',
+ 2:['Built the palette, type scale and component library from the studio\u2019s real post types',
+    'Designed layout templates for schedules, features, workshops and booking calls',
+    'Set the contrast rule that keeps the brand yellow legible in every placement',
+    'Wrote the brand guidelines so the team can publish on-brand without a designer'],
+ 3:['Designed the recipe detail and cooking experience',
+    'Structured ingredients, nutrition, utensils and AI summaries to cut cognitive load',
+    'Conceptualised the step-by-step cooking interface, one full-screen instruction at a time'],
+ 4:['Owned the technical implementation',
     'Wrote the Arduino and Processing code reading the motion sensors',
     'Mapped that data to line position, direction and flow on the canvas',
     'Tuned the mappings until the strokes felt natural'],
- 4:['Led the website design and communication',
+ 5:['Led the website design and communication',
     'Shaped separate charts into one scrolling narrative',
     'Built the micro-interaction that shifts the background gradient on scroll',
     'Handled documentation: findings, limitations and design decisions']
 };
-var YEARS={0:'2024',1:'2025',2:'2025',3:'2026',4:'2026'};
-var TIME={0:'1 day',1:'4 months',2:'4 months',3:'1 month',4:'2 months'};
-var SHOT={0:'th-tb1.jpg',1:'th-VPMD.jpg',2:'th-ZD.jpg',3:'th-EOMD.jpg',4:'th-TUVD.jpg'};
+var YEARS={0:'2025',1:'2025',2:'2026',3:'2024',4:'2026',5:'2026'};
+var TIME={0:'4 months',1:'4 months',2:'3 weeks',3:'1 day',4:'1 month',5:'2 months'};
+var SHOT={0:'th-VPMD.jpg',1:'th-ZD.jpg',2:'th-HAS.jpg',3:'th-tb1.jpg',4:'th-EOMD.jpg',5:'th-TUVD.jpg'};
 
 window.WORK_HTML=function(){
   var C=window.CASES||[];
@@ -392,7 +399,7 @@ window.WORK_HTML=function(){
    '<section class="ptop">'+
      '<div class="eyebrow rv">Work</div>'+
      '<h1 class="rv rv-d1">Work</h1>'+
-     '<p class="rv rv-d2">Five projects between 2024 and 2026. Each one says what the problem was and '+
+     '<p class="rv rv-d2">Six projects between 2024 and 2026. Each one says what the problem was and '+
        'what I personally did about it, so you can judge the contribution and not just the '+
        'screenshots.</p>'+
    '</section>'+

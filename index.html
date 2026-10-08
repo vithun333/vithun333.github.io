@@ -404,11 +404,15 @@ body.lines-in .fl-track{transform:scaleX(1)}
   font-size:clamp(26px,3.2vw,46px);line-height:1.16;margin-bottom:38px;max-width:26ch;
   letter-spacing:-.012em}
 .abt-copy .statement em{font-style:italic;color:var(--accent)}
-/* auto margins above the first paragraph and above the figures split the free
-   space evenly, so the small copy sits centred between the two */
-.abt-copy p{font-size:clamp(16px,1.25vw,19px);line-height:1.72;color:var(--ink-2);margin-bottom:22px;
-  max-width:62ch}
-.abt-copy p:first-of-type{margin-top:auto}
+/* The column is as tall as the portrait beside it, and on a wide screen that
+   leaves a lot of free space. It used to be split by TWO auto margins — one
+   above the copy and one above the figures — which pushed the paragraphs into
+   the middle and opened a gulf under the statement. Only the figures take the
+   slack now, so the copy reads as one block under the heading and the free
+   space collects in one place, at the bottom, where it looks deliberate. */
+.abt-copy .statement{margin-bottom:clamp(22px,2vw,30px)}
+.abt-copy p{font-size:clamp(16px,1.12vw,18px);line-height:1.62;color:var(--ink-2);
+  margin-bottom:clamp(14px,1.1vw,18px);max-width:58ch}
 .abt-right{max-width:none}
 .abt-lede{margin-top:22px;font-size:13.5px;line-height:1.65;color:var(--ink-2);max-width:34ch}
 .abt-lede b{color:var(--ink)}
@@ -880,7 +884,7 @@ body.arrowing .wrow:focus-visible{outline:none}
       <p class="rv rv-d1">As a child, watching Tony Stark interact with J.A.R.V.I.S. sparked a fascination with the idea of technology that feels effortless and deeply human. In that moment, I knew I wanted to pursue a career dedicated to designing the kinds of intelligent, intuitive experiences that once felt like science fiction.</p>
       <div class="facts">
         <div class="fact rv"><b>3</b><span>Years designing</span></div>
-        <div class="fact rv rv-d1"><b>05</b><span>Selected projects</span></div>
+        <div class="fact rv rv-d1"><b>06</b><span>Selected projects</span></div>
         <div class="fact rv rv-d2"><b>YVR</b><span>Vancouver, Canada</span></div>
       </div>
     </div>
@@ -1036,12 +1040,14 @@ const sessSet=(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){}};
 
 /* ---------------- DATA ---------------- */
 const PROJECTS=[
- {name:"tidbit",cat:"UI/UX Hackathon",year:"2024",time:"1 day",img:"tb1.png",thumb:"th-tb1.jpg",color:"#F5821F",   // thumb = device mockup
-  blurb:"A quick cooking app you browse by swiping, turning recipe overload into simple instructions you follow one step at a time, built in a single day."},
  {name:"Vancouver Police Museum",cat:"UI/UX — Accessibility",year:"2025",time:"4 months",img:"VPM1.png",thumb:"th-VPMD.jpg",color:"#3B82F6",
   blurb:"An accessibility-focused museum app grounded in four months of on-site research and stakeholder collaboration."},
  {name:"Zealty",cat:"UX Research",year:"2025",time:"4 months",img:"Z1.png",thumb:"th-ZD.jpg",color:"#EC4899",
   blurb:"A comparative usability study against REW with redesign recommendations for Zealty's product team, all backed by research."},
+ {name:"Harmony Arts Studio",cat:"Visual Identity / Design System",year:"2026",time:"3 weeks",img:"HAS1.png",thumb:"th-HAS.jpg",color:"#F5C842",
+  blurb:"A visual design system and template kit for a Langley wellness studio, so a small team can publish on-brand social content without a designer."},
+ {name:"tidbit",cat:"UI/UX Hackathon",year:"2024",time:"1 day",img:"tb1.png",thumb:"th-tb1.jpg",color:"#F5821F",   // thumb = device mockup
+  blurb:"A quick cooking app you browse by swiping, turning recipe overload into simple instructions you follow one step at a time, built in a single day."},
  {name:"Echo of Motion",cat:"Wearable Interaction",year:"2026",time:"1 month",img:"EOMD.png",thumb:"th-EOMD.jpg",color:"#EF4444",
   blurb:"A wearable drawing interface that translates wrist movement into expressive lines in real time on a digital canvas."},
  {name:"The Uneven Wave",cat:"Frontend / Data Viz",year:"2026",time:"2 months",img:"TUW-1.png",thumb:"th-TUVD.jpg",color:"#CDB89A",
@@ -1099,9 +1105,10 @@ function chainSrc(img,list,i){                       // try each source until on
 /* the device mockup leads (listed twice so it dominates), with a couple of
    detail shots mixed in so the playground wall never looks repetitive        */
 const SHOTS=[
- ["th-tb1.jpg","th-tb1.jpg","th-tb34.jpg"],
  ["th-VPMD.jpg","th-VPMD.jpg","th-VPM2.jpg","th-VPM4.jpg"],
  ["th-ZD.jpg","th-ZD.jpg","th-Z2.jpg","th-Z3.jpg"],
+ ["th-HAS.jpg","th-HAS.jpg","th-HAS2.jpg","th-HAS3.jpg"],
+ ["th-tb1.jpg","th-tb1.jpg","th-tb34.jpg"],
  ["th-EOMD.jpg","th-EOMD.jpg","th-320-2.jpg"],
  ["th-TUVD.jpg","th-TUVD.jpg","th-TUW-2.jpg","th-TUW-3.jpg"]
 ];
@@ -1120,8 +1127,8 @@ const TOOLS=[["Figma","figma.svg"],["Photoshop","photoshop.png"],["After Effects
 /* each frame carries the project it came from, shown on hover */
 const GALLERY=[["th-tb1.jpg","tidbit"],["th-VPM2.jpg","Vancouver Police Museum"],
   ["th-book.jpg","Sentient"],["th-Z2.jpg","Zealty"],["th-320-2.jpg","Echo of Motion"],
-  ["th-TUW-2.jpg","The Uneven Wave"],["th-tb34.jpg","tidbit"],["th-horroscope.jpg","Horroscope"],
-  ["th-VPM4.jpg","Vancouver Police Museum"],["th-Z3.jpg","Zealty"],["th-TUW-3.jpg","The Uneven Wave"]];
+  ["th-TUW-2.jpg","The Uneven Wave"],["th-HAS.jpg","Harmony Arts Studio"],["th-tb34.jpg","tidbit"],["th-horroscope.jpg","Horroscope"],
+  ["th-VPM4.jpg","Vancouver Police Museum"],["th-Z3.jpg","Zealty"],["th-HAS2.jpg","Harmony Arts Studio"],["th-TUW-3.jpg","The Uneven Wave"]];
 
 /* ---------------- BUILD MARKUP ---------------- */
 $('#wlist').innerHTML=PROJECTS.map((p,i)=>`
@@ -1204,13 +1211,22 @@ if(!COARSE){
   addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
   /* the dot stays essentially on the pointer (so small targets stay hittable),
      while the ring eases in behind it for the trailing, weighty feel          */
-  (function loop(){
+  /* Stops when the ring has caught up. A cursor that is not moving was still
+     writing two transforms a frame for the life of the page, and those writes
+     land on the same thread the scroll is using. */
+  let curRaf=null;
+  function loop(){
+    curRaf=null;
     cx=lerp(cx,mx,.55);cy=lerp(cy,my,.55);
     rx=lerp(rx,mx,.11);ry=lerp(ry,my,.11);
     cur.style.transform=`translate(${cx.toFixed(2)}px,${cy.toFixed(2)}px) translate(-50%,-50%)`;
     ring.style.transform=`translate(${rx.toFixed(2)}px,${ry.toFixed(2)}px) translate(-50%,-50%)`;
-    requestAnimationFrame(loop);
-  })();
+    if(Math.abs(rx-mx)>0.2||Math.abs(ry-my)>0.2||Math.abs(cx-mx)>0.2||Math.abs(cy-my)>0.2)
+      curRaf=requestAnimationFrame(loop);
+  }
+  const curKick=()=>{if(!curRaf)curRaf=requestAnimationFrame(loop);};
+  addEventListener('mousemove',curKick,{passive:true});
+  curKick();
   document.addEventListener('mouseover',e=>{
     const t=e.target.closest('a,button,.figwrap,.hitem,input,textarea');
     if(!t)return;cur.classList.add('lg');ring.classList.add('lg');
@@ -1598,11 +1614,12 @@ function marquee(root,base){
      were writing transforms and two custom properties on every frame of the
      page's life, including the whole time they were scrolled past. */
   let live=true,raf=null;
+  /* one chain only. The observer can fire before the starting call below, and
+     when it did, both of them scheduled a loop and the marquee ran two
+     callbacks per frame for the life of the page. */
+  const mKick=()=>{if(!raf&&live)raf=requestAnimationFrame(loop);};
   if(typeof IntersectionObserver!=='undefined'){
-    new IntersectionObserver(es=>{
-      live=es[0].isIntersecting;
-      if(live&&!raf)raf=requestAnimationFrame(loop);
-    },{threshold:0}).observe(root);
+    new IntersectionObserver(es=>{live=es[0].isIntersecting;mKick();},{threshold:0}).observe(root);
   }
   function loop(){
     raf=null;
@@ -1616,7 +1633,7 @@ function marquee(root,base){
     root.style.setProperty('--dotB',d.toFixed(1)+'px');
     raf=requestAnimationFrame(loop);
   }
-  raf=requestAnimationFrame(loop);
+  mKick();
 }
 let velo=0,lastY=scrollY;
 addEventListener('scroll',()=>{const y=scrollY;velo=clamp((y-lastY)*.5,-26,26);lastY=y;window.__kickDecay&&window.__kickDecay();},{passive:true});
@@ -1670,9 +1687,9 @@ if(!COARSE)(function(){
     /* land where the cursor already is. Without this it slides in from wherever
        the last preview was left, which reads as the card flying across        */
     if(!fl.classList.contains('on')){fx=kx==null?mx:kx;fy=ky==null?my:ky;px=fx;sc=.86;}
-    fl.classList.add('on');tsc=1;
+    fl.classList.add('on');tsc=1;flKick();
   };
-  const hidePrev=()=>{fl.classList.remove('on');tsc=.86;};
+  const hidePrev=()=>{fl.classList.remove('on');tsc=.86;flKick();};
 
   /* ---------------------------------------------------------------- hover
      Worked out from the pointer position rather than left to :hover, because a
@@ -1710,13 +1727,22 @@ if(!COARSE)(function(){
   addEventListener('blur',()=>{kx=ky=null;setHot(null);});
   addEventListener('pointerup',()=>{kx=ky=null;refresh();});
 
-  (function loop(){
+  /* Only while the card is actually on screen, and only until it settles. It
+     used to chase the pointer every frame even with no row hovered and the
+     work list nowhere near the viewport. */
+  let flRaf=null;
+  function loop(){
+    flRaf=null;
     const tx=kx==null?mx:kx,ty=ky==null?my:ky;
     fx=lerp(fx,tx,.11);fy=lerp(fy,ty,.11);sc=lerp(sc,tsc,.12);
     const sk=clamp((tx-px)*.35,-14,14);px=lerp(px,tx,.2);
     fl.style.transform=`translate(${fx}px,${fy}px) translate(-50%,-50%) rotate(${(sk*.32).toFixed(2)}deg) skewX(${(sk*.22).toFixed(2)}deg) scale(${sc.toFixed(3)})`;
-    requestAnimationFrame(loop);
-  })();
+    const moving=Math.abs(fx-tx)>0.3||Math.abs(fy-ty)>0.3||Math.abs(sc-tsc)>0.002;
+    if(fl.classList.contains('on')||moving)flRaf=requestAnimationFrame(loop);
+  }
+  const flKick=()=>{if(!flRaf)flRaf=requestAnimationFrame(loop);};
+  addEventListener('mousemove',flKick,{passive:true});
+  flKick();
 })();
 
 /* ---------------- PARALLAX: the portrait drifts down through About ---------------- */
@@ -1735,13 +1761,22 @@ if(!COARSE)(function(){
     tgtOut=prog*Math.min(innerWidth<1024?80:300,s.height*0.30);
     tgtIn=prog*f.height*0.28;                           // image inside pans down too (parallax)
   }
-  addEventListener('scroll',perFrame(measure),{passive:true});addEventListener('resize',measure);measure();
-  (function loop(){
+  /* This one sits exactly where the page was reported as laggy. It wrote two
+     transforms every frame for the life of the document, including the whole
+     time About was off screen and the targets had not changed. Now it eases to
+     the target, stops, and a scroll starts it again. */
+  let pRaf=null;
+  function loop(){
+    pRaf=null;
     curOut=lerp(curOut,tgtOut,.075);curIn=lerp(curIn,tgtIn,.075);
     fig.style.transform='translate3d(0,'+curOut.toFixed(2)+'px,0)';
     svg.style.transform='translate3d(0,'+curIn.toFixed(2)+'px,0)';
-    requestAnimationFrame(loop);
-  })();
+    if(Math.abs(curOut-tgtOut)>0.05||Math.abs(curIn-tgtIn)>0.05)pRaf=requestAnimationFrame(loop);
+  }
+  const pKick=()=>{if(!pRaf)pRaf=requestAnimationFrame(loop);};
+  addEventListener('scroll',perFrame(()=>{measure();pKick();}),{passive:true});
+  addEventListener('resize',()=>{measure();pKick();});
+  measure();pKick();
 })();
 
 /* the Vancouver clock lives in clock.js, shared with About, Work and the
@@ -1875,6 +1910,7 @@ if(!COARSE)(function(){
     const tr=Math.min(W,H)*.115;
     const o={el:c,r:tr*.3,tr:tr};c.setAttribute('r',o.r.toFixed(1));
     blobs.appendChild(c);trail.push(o);
+    if(window.__trailKick)window.__trailKick();      // the decay loop idles when empty
     if(trail.length>330){const old=trail.shift();old.el.remove();}   // denser chain, longer cap
   }
   function add(x,y){                                   // fill the whole path → one continuous liquid trail
@@ -1917,11 +1953,36 @@ if(!COARSE)(function(){
   let nextAt=performance.now()+1100,scribEnd=0,sxp=0,syp=0,sang=0;
   fig.addEventListener('pointerenter',()=>{over=true;});
   fig.addEventListener('pointerleave',()=>{over=false;resumeAt=performance.now()+800;});
-  if(!REDUCED)(function ambient(){
+
+  /* ONLY WHILE THE PORTRAIT IS ON SCREEN.
+
+     This loop drops circles into a group carrying an feGaussianBlur with a
+     standard deviation of 17, and an SVG filter of that size is one of the most
+     expensive things a browser can be asked to re-rasterise. It was running
+     every frame for the life of the page, which means the entire scroll from
+     the hero down to About was paying for a blurred group nobody could see.
+     An affordance that exists to say "this responds to a cursor" has no reason
+     to run when it is not in front of one. */
+  let onScreen=false,ambRaf=null;
+  const ambKick=()=>{if(!ambRaf&&onScreen&&!REDUCED)ambRaf=requestAnimationFrame(ambient);};
+  if(typeof IntersectionObserver!=='undefined'){
+    new IntersectionObserver(es=>{
+      onScreen=es[0].isIntersecting;
+      if(onScreen)ambKick();
+      else{                                  // leaving: drop the trail so its decay loop idles too
+        for(const o of trail)o.el.remove();
+        trail.length=0;lx=null;ly=null;
+      }
+    },{threshold:0}).observe(fig);
+  }else onScreen=true;
+
+  function ambient(){
+    ambRaf=null;
+    if(!onScreen)return;
     const now=performance.now();
     if(over||sweeping||now<resumeAt){
       lx=null;ly=null;                                  // never join a new stroke onto an old one
-      requestAnimationFrame(ambient);return;
+      ambRaf=requestAnimationFrame(ambient);return;
     }
     if(now>=scribEnd){                                  // resting between scribbles
       lx=null;ly=null;
@@ -1943,8 +2004,9 @@ if(!COARSE)(function(){
       add(sxp,syp);
       if(now>=scribEnd-20)nextAt=now+3200+Math.random()*2600;   // a few seconds off
     }
-    requestAnimationFrame(ambient);
-  })();
+    ambRaf=requestAnimationFrame(ambient);
+  }
+  ambKick();
 
   /* keyboard equivalent of running the cursor across it */
   fig.addEventListener('keydown',e=>{
@@ -1960,7 +2022,11 @@ if(!COARSE)(function(){
       else{sweeping=false;lx=null;ly=null;resumeAt=performance.now()+900;}
     })();
   });
-  (function decay(){                                   // grow into place, linger, then melt away
+  /* Idles to nothing when the trail is empty instead of scheduling a frame
+     forever to iterate a zero-length array. */
+  let dRaf=null;
+  function decay(){
+    dRaf=null;
     for(let i=trail.length-1;i>=0;i--){
       const o=trail[i];
       /* slower on both counts: the goal recedes gently and the circle takes its
@@ -1970,7 +2036,10 @@ if(!COARSE)(function(){
       o.r+=(o.tr-o.r)*.18;                             // …and the circle eases toward it
       if(o.r<.8){o.el.remove();trail.splice(i,1);}else o.el.setAttribute('r',o.r.toFixed(1));
     }
-    requestAnimationFrame(decay);})();
+    if(trail.length)dRaf=requestAnimationFrame(decay);
+  }
+  window.__trailKick=()=>{if(!dRaf)dRaf=requestAnimationFrame(decay);};
+  decay();
 })();
 
 /* ---------------- PLAYGROUND: infinite draggable canvas ----------------
